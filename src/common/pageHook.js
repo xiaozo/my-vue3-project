@@ -11,12 +11,13 @@ import {
 	computed
 } from 'vue';
 
+
 import Eventbus from '@/utils/eventbus.js'
 
 export function pageHook(paging, userConfig = {
 
 }) {
-
+	
 	// 合并配置
 	const config = {
 		monitorLoginSuccess: true,         ///是否监听登录成功通知，如果监听则刷新页面
@@ -24,7 +25,6 @@ export function pageHook(paging, userConfig = {
 		needLogin: false,   ///是否需要登录
 		...userConfig      // 用户传入的配置
 	};
-	console.log("userConfig",userConfig);
 	
 	const Tag = ref(null)
 	const cPaging = !!paging ? paging.value || paging : null;

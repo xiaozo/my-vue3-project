@@ -17,6 +17,7 @@
       <u-icon name="photo"></u-icon>
       <u-button>月落</u-button>
       <u-button type="success" @click="clickfn">成功按钮</u-button>
+      {{ storeRef }}
     </view>
   </view>
   </my-paging>
@@ -40,6 +41,7 @@ import {
   pageHook
 } from "@/common/pageHook.js"
 
+import {storeRef} from "@/common/globalData.js"
 
 const paging = ref(null)
 const {
@@ -99,8 +101,9 @@ function pageLoad() {
 
 const clickfn = () => {
   console.log("clickfn");
-  Eventbus.pub('loginSuccess')
-  showSimple.value = false
+  // Eventbus.pub('loginSuccess')
+  // showSimple.value = false
+  storeRef.value = {"name":"zlx"}
 
 }
 
