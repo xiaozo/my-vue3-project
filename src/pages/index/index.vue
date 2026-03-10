@@ -17,7 +17,7 @@
       <u-icon name="photo"></u-icon>
       <u-button>月落</u-button>
       <u-button type="success" @click="clickfn">成功按钮</u-button>
-      {{ storeRef }}
+     
     </view>
   </view>
   </my-paging>
@@ -103,7 +103,7 @@ const clickfn = () => {
   console.log("clickfn");
   // Eventbus.pub('loginSuccess')
   // showSimple.value = false
-  storeRef.value = {"name":"zlx"}
+  // storeRef.value = {"name":"zlx"}
 
 }
 

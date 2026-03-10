@@ -8,7 +8,8 @@ import {
 	ref,
 	reactive,
 	nextTick,
-	computed
+	computed,
+	markRaw
 } from 'vue';
 
 
@@ -52,6 +53,7 @@ export function pageHook(paging, userConfig = {
 			_pagePro.finishOperateKey = options.FinishOperateKey;
 		}
 
+		// _pagePro.options = markRaw(options)
 		_pagePro.options = options
 		_pagePro.currentNavIndex = __navIndex();
 

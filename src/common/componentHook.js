@@ -108,7 +108,7 @@ export function componentPageHook(props, paging, userConfig = {
 	}
 
 	const __pageStatusHandle = () => {
-		refresh()
+		
 		if (!!isShow.value) {
 			///显示页面
 			if (!!_componentPro.isShowRefresh) {
