@@ -14,7 +14,7 @@ https://z-paging.zxlee.cn/start/intro.html -->
     :auto-show-system-loading="autoShowSystemLoading"
     :auto-hide-loading-after-first-loaded="AutoHideLoadingAfterFirstLoaded" :fixed="fixed"
     :show-empty-view-reload="showEmptyViewReload" :auto="false" :empty-view-text="emptyViewText"
-    :empty-view-error-text="errorMsg" @scroll="mySroll" @scrolltoupper="myScrolltoupper" v-bind="$attrs">
+    :empty-view-error-text="errorMsg" @scroll="mySroll" @scrolltoupper="myScrolltoupper" >
     <!-- 这里插入一个view到z-paging中，并且这个view会被z-paging标记为top固定在顶部 -->
 
     <template #top>
@@ -63,6 +63,8 @@ https://z-paging.zxlee.cn/start/intro.html -->
 const app = getApp();
 
 export default {
+  ///禁用自动继承
+  inheritAttrs: false,
   name: "my-paging",
   data() {
     return {

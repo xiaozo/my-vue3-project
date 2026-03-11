@@ -152,9 +152,9 @@ export function pageHook(paging, userConfig = {
 
 
 	return {
-		_options,
-		_pagePro,
-		refresh,
+		_options,  ///当前的_options
+		_pagePro,	///页面的状态对象
+		refresh,	////刷新页面
 		requestMainData
 	};
 }
