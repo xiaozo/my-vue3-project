@@ -271,7 +271,7 @@ export default {
     //监听z-paging的@query事件，通过emit传递给页面
     myqueryList(pageNo, pageSize) {
       if (pageNo == 1) {
-        this.$emit("pageLoad");
+        this.$emit("pageLoad", this._options);
       }
       this.$emit("query", pageNo, pageSize);
     },

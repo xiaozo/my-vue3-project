@@ -13,10 +13,10 @@
     <SimpleComponent :pagePro="_pagePro" v-if="showSimple" model="common" />
     <image class="logo" src="/static/logo.png"></image>
     <view class="ba-flex-col-start">
-      <text class="title">{{ title }}</text>
       <u-icon name="photo"></u-icon>
       <u-button>月落</u-button>
       <u-button type="success" @click="clickfn">成功按钮</u-button>
+      {{ _options }}
      
     </view>
   </view>
@@ -31,7 +31,7 @@ import {
   onBeforeMount,
   nextTick,
   onMounted,
-  reactive
+  reactive,
 } from 'vue';
 // 必须导入需要用到的页面生命周期（即使在当前页面上没有直接使用到）
 import {
@@ -77,10 +77,10 @@ onLoad(() => {
 
 const queryList = (pageNo, pageSize) => {
   // 模拟接口请求
-  // console.log("queryList")
-  // paging.value.complete([{
-  // 	"title": "wwwww"
-  // }])
+  console.log("queryList")
+  paging.value.complete([{
+  	"title": "wwwww"
+  }])
 
 };
 
@@ -94,16 +94,17 @@ const queryList = (pageNo, pageSize) => {
 //   // })
 // }
 
-function pageLoad() {
-   console.log("pageLoad")
-  paging.value.complete()
+function pageLoad(options) {
+   console.log("pageLoad",options)
+  // paging.value.complete()
 }
 
 const clickfn = () => {
-  console.log("clickfn");
+  console.log("clickfn",_options);
   // Eventbus.pub('loginSuccess')
   // showSimple.value = false
   // storeRef.value = {"name":"zlx"}
+  refresh()
 
 }
 

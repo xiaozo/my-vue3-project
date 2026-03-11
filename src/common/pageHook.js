@@ -9,7 +9,9 @@ import {
 	reactive,
 	nextTick,
 	computed,
-	markRaw
+	markRaw,
+	toRaw,
+	watch
 } from 'vue';
 
 
@@ -18,7 +20,7 @@ import Eventbus from '@/utils/eventbus.js'
 export function pageHook(paging, userConfig = {
 
 }) {
-	
+
 	// 合并配置
 	const config = {
 		monitorLoginSuccess: true,         ///是否监听登录成功通知，如果监听则刷新页面
@@ -26,7 +28,7 @@ export function pageHook(paging, userConfig = {
 		needLogin: false,   ///是否需要登录
 		...userConfig      // 用户传入的配置
 	};
-	
+
 	const Tag = ref(null)
 	const cPaging = !!paging ? paging.value || paging : null;
 
@@ -45,16 +47,17 @@ export function pageHook(paging, userConfig = {
 		///当前堆栈里第几个页面索引
 		currentNavIndex: 0,
 	});
+
 	onLoad((options) => {
 
-		console.log("config", config);
+		// console.log("config", config);
 
 		if (!!options.FinishOperateKey) {
 			_pagePro.finishOperateKey = options.FinishOperateKey;
 		}
 
-		// _pagePro.options = markRaw(options)
-		_pagePro.options = options
+		_pagePro.options = markRaw(options)
+
 		_pagePro.currentNavIndex = __navIndex();
 
 		if (!!config.monitorLoginSuccess) {
@@ -69,7 +72,7 @@ export function pageHook(paging, userConfig = {
 			})
 		}
 
-		nextTick(() => {	
+		nextTick(() => {
 			if (!!cPaging?.value?.auto || !cPaging.value) {
 				///刷新一次
 				__refresh()
@@ -78,7 +81,7 @@ export function pageHook(paging, userConfig = {
 		})
 
 	})
-	onUnload(()=>{
+	onUnload(() => {
 		Eventbus.cancel('loginSuccess', Tag)
 		Eventbus.cancel('globalRefresh', Tag)
 	})
@@ -104,7 +107,7 @@ export function pageHook(paging, userConfig = {
 	const refresh = () => {
 		if (!!_pagePro.isShow) {
 			__refresh()
-			
+
 		} else {
 			_pagePro.isShowRefresh = true
 		}
@@ -136,12 +139,13 @@ export function pageHook(paging, userConfig = {
 		return Math.max(pages.length, 1) - 1;
 	}
 
-	const __refresh = ()=>{
+	const __refresh = () => {
 		if (!!cPaging.value) {
-				cPaging?.value?.reload()
-			} else {
-				config.pageLoad?.(_options)
-			}
+			cPaging.value._options = _options.value
+			cPaging.value?.reload()
+		} else {
+			config.pageLoad?.(_options.value)
+		}
 	}
 
 

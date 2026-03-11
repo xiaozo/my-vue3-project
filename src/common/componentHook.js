@@ -69,6 +69,7 @@ export function componentPageHook(props, paging, userConfig = {
 		__pageStatusHandle()
 	});
 
+	///onMounted
 	onMounted(() => {
 
 		Eventbus.sub('loginSuccess', Tag, () => {
@@ -104,7 +105,13 @@ export function componentPageHook(props, paging, userConfig = {
 			return
 		}
 
-		cPaging?.value?.reload()
+		// cPaging?.value?.reload()
+		if (!!cPaging.value) {
+			cPaging.value._options = _options.value
+			cPaging.value?.reload()
+		} else {
+			config.pageLoad?.(_options.value)
+		}
 	}
 
 	const __pageStatusHandle = () => {

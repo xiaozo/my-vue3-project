@@ -45,7 +45,6 @@ export function createApp() {
 	const app = createSSRApp(App);
 	app.use(uViewPro)
 	// app.mixin(mixin)
-
 	// app.config.globalProperties.$requestV2 = requestV2
 	return {
 		app,
