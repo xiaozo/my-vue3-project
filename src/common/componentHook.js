@@ -1,7 +1,6 @@
 
 
-import { watch, computed, onMounted, onUnmounted, nextTick, toRef } from 'vue';
-import { ref } from 'vue';
+import { ref, watch, computed, onMounted, onUnmounted, nextTick, toRef, toRaw } from 'vue';
 import Eventbus from '@/utils/eventbus.js'
 
 export const baseComponentPageProps = {
@@ -11,6 +10,15 @@ export const baseComponentPageProps = {
 			return {
 				options: {},
 				isShow: false
+			}
+		},
+	},
+	///options 参数
+	options: {
+		type: Object,
+		default: function () {
+			return {
+
 			}
 		},
 	},
@@ -51,7 +59,9 @@ export function componentPageHook(props, paging, userConfig = {
 
 	const cPaging = !!paging ? paging.value || paging : null;
 
-	const _options = computed(() => props.pagePro?.options || {});
+	const _options = ref(props?.options || {})
+
+	const _mainPageOptions = computed(() => props.pagePro?.options || {});
 
 	const isShow = computed(() => props.pagePro?.isShow || false);
 
@@ -95,6 +105,8 @@ export function componentPageHook(props, paging, userConfig = {
 
 	});
 
+
+	///刷新页面
 	const refresh = (firstLoad = false) => {
 		if (_componentPro.isShowRefresh) return
 		if (props.model != 'tabs') {
@@ -106,16 +118,16 @@ export function componentPageHook(props, paging, userConfig = {
 		}
 
 		// cPaging?.value?.reload()
-		if (!!cPaging.value) {
-			cPaging.value._options = _options.value
+		if (!!cPaging?.value) {
+			cPaging.value._options = toRaw(_options.value)
 			cPaging.value?.reload()
 		} else {
-			config.pageLoad?.(_options.value)
+			config.pageLoad?.(toRaw(_options.value))
 		}
 	}
 
 	const __pageStatusHandle = () => {
-		
+
 		if (!!isShow.value) {
 			///显示页面
 			if (!!_componentPro.isShowRefresh) {
@@ -133,9 +145,11 @@ export function componentPageHook(props, paging, userConfig = {
 	}
 
 	return {
-		_options,
-		_componentPro,
-		_mainPageIsShow ////主页面是否显示
+		_options, ///当前的_options
+		_mainPageOptions, ///主页的options
+		_componentPro,	///组件的状态对象
+		_mainPageIsShow, ////主页面是否显示
+		refresh		///刷新方法
 	};
 }
 

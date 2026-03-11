@@ -10,7 +10,9 @@
     </template> -->
 
   <view class="content">
-    <SimpleComponent :pagePro="_pagePro" v-if="showSimple" model="common" />
+    <SimpleComponent :pagePro="_pagePro" v-if="showSimple" model="common" :options="{
+      t:'t'
+    }"/>
     <image class="logo" src="/static/logo.png"></image>
     <view class="ba-flex-col-start">
       <u-icon name="photo"></u-icon>

@@ -104,6 +104,7 @@ export function pageHook(paging, userConfig = {
 	})
 
 
+	///刷新页面
 	const refresh = () => {
 		if (!!_pagePro.isShow) {
 			__refresh()
@@ -113,6 +114,7 @@ export function pageHook(paging, userConfig = {
 		}
 	}
 
+	////请求方法
 	const requestMainData = (...args) => {
 
 		// ///方法中转
@@ -141,10 +143,10 @@ export function pageHook(paging, userConfig = {
 
 	const __refresh = () => {
 		if (!!cPaging.value) {
-			cPaging.value._options = _options.value
+			cPaging.value._options = toRaw(_options.value)
 			cPaging.value?.reload()
 		} else {
-			config.pageLoad?.(_options.value)
+			config.pageLoad?.(toRaw(_options.value))
 		}
 	}
 
