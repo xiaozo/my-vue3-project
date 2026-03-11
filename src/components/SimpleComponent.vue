@@ -13,13 +13,14 @@ const props = defineProps({
 	...baseComponentPageProps, // 继承基础属性
 })
 
-const { _mainPageoptions, _componentPro, _mainPageIsShow,refresh } = componentPageHook(props, null, {
+const { _mainPageOptions, _componentPro, _mainPageIsShow,refresh } = componentPageHook(props, null, {
 	onComponentPageShow: () => {
 		console.log("组件页面显示", _componentPro, _mainPageIsShow.value);
 
 	},
 	pageLoad:(options)=>{
-		console.log("组件页面加载", options);
+		const params = {..._mainPageOptions.value, ...options}
+		console.log("组件页面加载", params);
 		
 	}
 });

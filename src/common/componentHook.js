@@ -49,9 +49,6 @@ export function componentPageHook(props, paging, userConfig = {
 
 	// 合并配置
 	const config = {
-		// monitorLoginSuccess: true, ///是否监听登录成功通知，如果监听则刷新页面
-		// globalRefresh: true,   ///是否监听登录成功通知，如果监听则刷新页面
-		// needLogin: false,   ///是否需要登录
 		...userConfig      // 用户传入的配置
 	};
 
@@ -117,7 +114,6 @@ export function componentPageHook(props, paging, userConfig = {
 			return
 		}
 
-		// cPaging?.value?.reload()
 		if (!!cPaging?.value) {
 			cPaging.value._options = toRaw(_options.value)
 			cPaging.value?.reload()
