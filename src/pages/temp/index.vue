@@ -1,79 +1,112 @@
 <template>
-  <my-paging ref="paging" v-model="list" @query="queryList" :empty-view-text="'没有数据啦11122'"
-    :loading-more-enabled="true">
-    <!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
-    <template #top>
+  <!-- 此时使用了页面的滚动，z-paging不需要有确定的高度，use-page-scroll需要设置为true -->
+  <my-paging ref="paging" v-model="dataList" @query="queryList" @pageLoad="pageLoad" :empty-view-text="'没有数据啦11122'">
+  <!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
+  <!-- 使用组件 -->
+
+  <!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
+  <!-- <template #top>
       <custom-navbar ref="customNavbar" :fixed="false" :dark="false" titleFontSize="15px" statusBar></custom-navbar>
-    </template>
+    </template> -->
 
-    <view class="content">
-      <image class="logo" src="/static/logo.png"></image>
-      <view class="ba-flex-col-start">
-        <text class="title">{{ title }}</text>
-        <u-icon name="photo"></u-icon>
-        <u-button>月落</u-button>
-        <u-button type="success" @click="clickFn">成功按钮</u-button>
-      </view>
+  <view class="content">
+    <SimpleComponent :pagePro="_pagePro" v-if="showSimple" model="common" :options="{
+      t:'t'
+    }"/>
+    <image class="logo" src="/static/logo.png"></image>
+    <view class="ba-flex-col-start">
+      <u-icon name="photo"></u-icon>
+      <u-button>月落</u-button>
+      <u-button type="success" @click="clickfn">成功按钮</u-button>
+      {{ _options }}
+     
     </view>
+  </view>
   </my-paging>
-
 </template>
 
-<script>
-import mixin from "@/common/page-extend.js";
-import mixin1 from "@/common/component-page-extend.js";
-export default {
-  mixins: [mixin],
-  data() {
-    return {
-      title: 'Hello',
-      list: []
-    }
-  },
-  onLoad() {
-    // console.log(this.setData);
-    // this.$requestV2();
+<script setup>
+import Eventbus from '@/utils/eventbus.js'
+import SimpleComponent from '@/components/SimpleComponent.vue'
+import {
+  ref,
+  onBeforeMount,
+  nextTick,
+  onMounted,
+  reactive,
+} from 'vue';
+// 必须导入需要用到的页面生命周期（即使在当前页面上没有直接使用到）
+import {
+  onLoad
+} from '@dcloudio/uni-app';
+import {
+  pageHook
+} from "@/common/pageHook.js"
+
+import {storeRef} from "@/common/globalData.js"
+
+const paging = ref(null)
+const {
+  _options,
+  _pagePro,
+  refresh
+} = pageHook(paging, {
+  
+});
+// import useZPaging from "@/uni_modules/z-paging/components/z-paging/js/hooks/useZPaging.js";
 
 
-  },
-  methods: {
-    pageLoad(options) {
-      var pages = getCurrentPages();
-      var page = pages[pages.length - 1];
-      // console.log("onBeforeMount1",page.$vm.$refs) 
-      console.log("pageLoadpageLoad");
-      
+const dataList = ref([])
 
-    },
-    pageQueryList(pageNo, pageSize) {
-      // 模拟接口请求
-      console.log("queryList")
-      this.$refs.paging.complete()
-    },
-    t() {
-      // 转为字符串
-      const strValue = '10px'
-      // 匹配数字和单位
-      const match = strValue.match(/^(\d+(?:\.\d+)?)(px|rpx)?$/i)
+const showSimple = ref(true)
 
-      if (!match) {
-        // 如果不符合格式，返回原始值
-        return strValue
-      }
+// 在合适的生命周期中获取
+// onBeforeMount(() => {
+// 	console.log("onBeforeMount")
 
-      const [, num] = match
-      return `${num * 2}`
-    },
-    clickFn() {
+// });
+// onMounted(
+// 	() => {
+// 		console.log("onMounted")
 
-      console.log("clickFn")
-      this.refresh()
+// 	})
 
-    }
-  },
+onLoad(() => {
+  // console.log("useZPaginguseZPaginguseZPaging111",Options.value)
+
+
+})
+
+const queryList = (pageNo, pageSize) => {
+  // 模拟接口请求
+  console.log("queryList")
+  paging.value.complete([{
+  	"title": "wwwww"
+  }])
+
+};
+
+
+function pageLoad(options) {
+   console.log("pageLoad",options)
+  // paging.value.complete()
 }
-</script>
 
+const clickfn = () => {
+  console.log("clickfn");
+  // Eventbus.pub('loginSuccess')
+  // showSimple.value = false
+  // storeRef.value = {"name":"zlx"}
+  // refresh()
+
+  uni.navigateTo({
+        url: "/pages/temp/index",
+      });
+
+}
+
+// 其他省略
+</script>
 <style>
 .content {
   display: flex;

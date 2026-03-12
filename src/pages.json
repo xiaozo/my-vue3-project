@@ -5,6 +5,12 @@
 			"style": {
 				"navigationBarTitleText": "我是uni-app"
 			}
+		},
+		{
+			"path": "pages/temp/index",
+			"style": {
+				"navigationBarTitleText": "我是uni-app1"
+			}
 		}
 	],
 	"globalStyle": {

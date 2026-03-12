@@ -12,7 +12,7 @@
         <text class="title">{{ title }}</text>
         <u-icon name="photo"></u-icon>
         <u-button>月落</u-button>
-        <u-button type="success">成功按钮</u-button>
+        <u-button type="success" @click="clickFn">成功按钮</u-button>
       </view>
     </view>
   </my-paging>
@@ -63,6 +63,12 @@ export default {
 
       const [, num] = match
       return `${num * 2}`
+    },
+    clickFn() {
+
+      console.log("clickFn")
+      this.refresh()
+
     }
   },
 }

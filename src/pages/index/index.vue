@@ -86,15 +86,6 @@ const queryList = (pageNo, pageSize) => {
 
 };
 
-// const pageLoad = () => {
- 
-//   // t("ddd", {
-//   // 	t: "cccc"
-//   // }).then((t) => {
-
-
-//   // })
-// }
 
 function pageLoad(options) {
    console.log("pageLoad",options)
@@ -102,11 +93,15 @@ function pageLoad(options) {
 }
 
 const clickfn = () => {
-  console.log("clickfn",_options);
+  console.log("clickfn");
   // Eventbus.pub('loginSuccess')
   // showSimple.value = false
   // storeRef.value = {"name":"zlx"}
-  refresh()
+  // refresh()
+
+  uni.navigateTo({
+        url: "/pages/temp/index",
+      });
 
 }
 
