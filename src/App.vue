@@ -55,5 +55,5 @@ export default {
 <style lang="scss">
 /*每个页面公共css */
 @import "uview-pro/index.scss";
-@import "./static/scss/variables/variables.scss";
+@import './static/scss/index.scss'
 </style>

@@ -43,7 +43,6 @@ import {
   pageHook
 } from "@/common/pageHook.js"
 
-import {storeRef} from "@/common/globalData.js"
 
 const paging = ref(null)
 const {
