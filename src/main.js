@@ -3,7 +3,8 @@ import {
 } from "vue";
 import App from "./App.vue";
 import uViewPro from 'uview-pro'
-import mixin from './common/mixin'
+// import mixin from './common/mixin'
+import store from './store' // store
 
 
 // ///代理
@@ -43,6 +44,7 @@ import mixin from './common/mixin'
 
 export function createApp() {
 	const app = createSSRApp(App);
+	 app.use(store)
 	app.use(uViewPro)
 	// app.mixin(mixin)
 	// app.config.globalProperties.$requestV2 = requestV2
